@@ -7,6 +7,9 @@ import DeckDetails from './components/DeckDetails'
 import { Constants } from 'expo'
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 import { black, white } from './utils/colors'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
 
 
 const Tabs = TabNavigator({
@@ -63,9 +66,11 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-        <MainNavigator />
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View style={{flex: 1}}>
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }
