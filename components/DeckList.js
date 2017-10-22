@@ -4,6 +4,7 @@ import { AppLoading } from 'expo'
 import { connect } from 'react-redux'
 import { receiveDecks } from '../actions'
 import { white, gray, black } from '../utils/colors'
+import { fetchDecks } from '../utils/api'
 
 class DeckList extends Component {
   state = {
@@ -13,10 +14,9 @@ class DeckList extends Component {
   componentDidMount () {
     const { dispatch } = this.props
 
-    dispatch(receiveDecks({}))
-    //  .then()
-
-    this.setState(() => ({ready: true}))
+    fetchDecks()
+      .then((decks) => dispatch(receiveDecks(decks)))
+      .then( () => this.setState(() => ({ready: true})))
   }
 
   render() {
@@ -48,7 +48,7 @@ class DeckList extends Component {
                   { deckId: key }
                 )}
               >
-                <Text style={{fontSize: 20}}>{key}</Text>
+                <Text style={{fontSize: 20}}>{decks[key].title}</Text>
                 <Text style={{fontSize: 16, color: white}}>Cards: {decks[key].questions.length}</Text>
               </TouchableOpacity>
             </View>

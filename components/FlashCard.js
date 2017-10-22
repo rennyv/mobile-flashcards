@@ -60,8 +60,7 @@ class FlashCard extends React.Component {
   }
 
   backToDeck = () => {
-    console.log("here")
-    this.props.navigation.dispatch(NavigationActions.back({key: 'DeckDetails'}))
+    this.props.navigation.dispatch(NavigationActions.back())
   }
   
   render() {

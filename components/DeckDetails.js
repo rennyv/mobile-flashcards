@@ -25,10 +25,10 @@ class DeckDetails extends React.Component {
   }
   
   render() {
-    const { deckId, deck } = this.props
+    const { title, deck } = this.props
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 30}}>{ deckId }</Text>
+        <Text style={{fontSize: 30}}>{ title }</Text>
         <Text style={{fontSize: 20, color: gray}}>Cards: {deck.questions.length}</Text>
 
         <View style={{paddingTop: 70}}>
@@ -46,12 +46,13 @@ class DeckDetails extends React.Component {
 }
 
 
-function mapStateToProps ( state, { navigation }) {
+function mapStateToProps ( decks, { navigation }) {
   const { deckId } = navigation.state.params
 
   return {
     deckId,
-    deck: state[deckId]
+    title: decks[deckId].title,
+    deck: decks[deckId],
   }
 }
 

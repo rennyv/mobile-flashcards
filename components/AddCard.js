@@ -14,11 +14,12 @@ class AddCard extends React.Component {
   }
 }
 
-function mapStateToProps ( state, { navigation }) {
+function mapStateToProps ( decks, { navigation }) {
   const { deckId } = navigation.state.params
 
   return {
     deckId,
+    title: decks[deckId].title
   }
 }
 
