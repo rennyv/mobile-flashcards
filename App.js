@@ -4,6 +4,8 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import AddDeck from './components/AddDeck'
 import DeckList from './components/DeckList'
 import DeckDetails from './components/DeckDetails'
+import AddCard from './components/AddCard'
+import FlashCard from './components/FlashCard'
 import { Constants } from 'expo'
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 import { black, white } from './utils/colors'
@@ -60,6 +62,24 @@ const MainNavigator = StackNavigator({
   },
   DeckDetails: {
     screen: DeckDetails,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: black,
+      }
+    }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: black,
+      }
+    }
+  },
+  FlashCard: {
+    screen: FlashCard,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {

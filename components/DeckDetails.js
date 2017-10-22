@@ -15,8 +15,26 @@ function SimpleBtn ({ onPress, txt }) {
 }
 
 class DeckDetails extends React.Component {
-  submit = () => { }
-    
+  startQuiz = () => { 
+    const { deckId } = this.props
+  
+    this.props.navigation.navigate(
+      'FlashCard',
+      { 
+        deckId: deckId,
+        currentQuestion: 0,
+        correct: 0
+      }
+    )}
+  
+  addCard = () => {
+    const { deckId } = this.props
+
+    this.props.navigation.navigate(
+      'AddCard',
+      { deckId: deckId }
+    )
+  }
   
   render() {
     const { deckId, deck } = this.props
@@ -26,11 +44,14 @@ class DeckDetails extends React.Component {
         <Text style={{fontSize: 20, color: gray}}>Cards: {deck.questions.length}</Text>
 
         <View style={{paddingTop: 70}}>
-          <SimpleBtn onPress={this.submit} txt="Add Card" />
+          <SimpleBtn onPress={this.addCard} txt="Add Card" />
         </View>
-        <View style={{paddingTop: 10}}>
-          <SimpleBtn onPress={this.submit} txt="Start Quiz" />
-        </View>
+        {
+          (deck.questions.length > 0 )
+          && <View style={{paddingTop: 10}}>
+              <SimpleBtn onPress={this.startQuiz} txt="Start Quiz" />
+            </View>
+        }
       </View>
     )
   }
@@ -55,7 +76,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   iosBtn: {
     backgroundColor: gray,
     padding: 10,
@@ -71,7 +91,6 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     height: 45,
     borderRadius: 2,
-   // alignSelf: 'flex-end',
     justifyContent: 'center',
     alignItems: 'center',
   },
