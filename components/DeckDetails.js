@@ -12,8 +12,6 @@ class DeckDetails extends React.Component {
       'FlashCard',
       { 
         deckId: deckId,
-        currentQuestion: 0,
-        correct: 0
       }
     )}
   

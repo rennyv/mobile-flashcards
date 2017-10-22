@@ -1,42 +1,128 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux'
-import { white, gray } from '../utils/colors'
+import { white, gray, red, green } from '../utils/colors'
 import SimpleBtn from './SimpleBtn'
+import { NavigationActions } from 'react-navigation'
 
 class FlashCard extends React.Component {
-  submit() {
+  state = {
+    showQuestion: true,
+    card: 0,
+    correct: 0,
+  }
 
+  
+  flipCard = () => {
+    const { showQuestion } = this.state
+
+    this.setState((state) => {
+      return {
+        ...state,
+        showQuestion: !showQuestion,
+      }
+    })
+  }
+
+  correct = () => {
+    const { card, correct } = this.state
+
+    this.setState((state) => {
+      return {
+        ...state,
+        card: card + 1,
+        correct: correct + 1,
+      }
+    })
+  }
+
+  wrong = () => {
+    const { card } = this.state
+    
+    this.setState((state) => {
+      return {
+        ...state,
+        card: card + 1,
+      }
+    })
+  }
+
+  restart = () => {
+    const { card, correct } = this.state
+    
+        this.setState((state) => {
+          return {
+            ...state,
+            card: 0,
+            correct: 0,
+          }
+        })
+  }
+
+  backToDeck = () => {
+    console.log("here")
+    this.props.navigation.dispatch(NavigationActions.back({key: 'DeckDetails'}))
   }
   
   render() {
-    const { question, answer } = this.props
+    const { showQuestion, card, correct } = this.state
+    const { deck } = this.props
+    
 
-    return (
+    if (card >= deck.questions.length) {
+      return (
+        <View style={styles.container}>
+          <Text style={{fontSize: 50}}>{((correct/deck.questions.length) * 100).toFixed(1)}%</Text>
+          <View style={{paddingTop: 70}}>
+            <SimpleBtn onPress={this.restart} txt="Restart Quiz" />
+          </View>
+          <View style={{paddingTop: 10}}>
+            <SimpleBtn onPress={this.backToDeck} txt="Back to Deck" />
+          </View>
+          
+        </View>
+      )
+
+    }
+
+
+    const question = deck.questions[card].question
+    const answer = deck.questions[card].answer
+
+    
+    return (      
       <View style={styles.container}>
-        <Text>{question}</Text>
-        <Text>{answer}</Text>
-
+        <View>
+          <Text style={{fontSize: 16}}>Card {card+1}/{deck.questions.length} </Text>
+        </View>
+        <View>
+          { (showQuestion) 
+            ? <Text style={{fontSize: 30}}>{question}</Text>
+            : <Text style={{fontSize: 20}}>{answer}</Text>
+          }
+        </View>
+        <View>
+          <TouchableOpacity onPress={this.flipCard}>
+            <Text>Flip</Text>
+          </TouchableOpacity>
+        </View>
         <View style={{paddingTop: 70}}>
-          <SimpleBtn onPress={this.submit} txt="Right" />
+          <SimpleBtn onPress={this.correct} txt="Right" style={{backgroundColor: green}} />
         </View>
         <View style={{paddingTop: 10}}>
-          <SimpleBtn onPress={this.startQuiz} txt="Wrong" />
+          <SimpleBtn onPress={this.wrong} txt="Wrong" style={{backgroundColor: red}} />
         </View>
       </View>
     );
   }
 }
 
-function mapStateToProps ( state, { navigation }) {
-  const { deckId, correct, currentQuestion } = navigation.state.params
+function mapStateToProps ( decks, { navigation }) {
+  const { deckId } = navigation.state.params
 
   return {
     deckId,
-    correct,
-    currentQuestion,
-    question: state[deckId].questions[currentQuestion].question,
-    answer: state[deckId].questions[currentQuestion].answer,
+    deck: decks[deckId]
   }
 }
 
