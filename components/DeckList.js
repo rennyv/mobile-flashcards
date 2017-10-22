@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native
 import { AppLoading } from 'expo'
 import { connect } from 'react-redux'
 import { receiveDecks } from '../actions'
-import { white, gray } from '../utils/colors'
+import { white, gray, black } from '../utils/colors'
 
 class DeckList extends Component {
   state = {
@@ -31,8 +31,8 @@ class DeckList extends Component {
       return (
         <View style={styles.container}>
           <View style={styles.item}>
-              <Text style={{fontSize: 20}}>No Decks Found</Text>
-              <Text style={{fontSize: 16, color: gray}}>You should add a deck</Text>
+              <Text style={{fontSize: 30}}>No Decks Found</Text>
+              <Text style={{fontSize: 20, color: gray}}>You should add a deck</Text>
           </View>
         </View>
       )
@@ -45,11 +45,11 @@ class DeckList extends Component {
             <TouchableOpacity
                 onPress={() => this.props.navigation.navigate(
                   'DeckDetails',
-                  { entryId: key }
+                  { deckId: key }
                 )}
               >
                 <Text style={{fontSize: 20}}>{key}</Text>
-                <Text style={{fontSize: 16, color: gray}}>Questions: {decks[key].questions.length}</Text>
+                <Text style={{fontSize: 16, color: white}}>Cards: {decks[key].questions.length}</Text>
               </TouchableOpacity>
             </View>
         )}
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   item: {
-    backgroundColor: white,
+    backgroundColor: gray,
     borderRadius: Platform.OS === 'ios' ? 16 : 2,
     padding: 20,
     marginLeft: 10,
