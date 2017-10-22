@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native'
 import { AppLoading } from 'expo'
 import { connect } from 'react-redux'
 import { receiveDecks } from '../actions'
+import { white, gray } from '../utils/colors'
 
 class DeckList extends Component {
   state = {
@@ -26,22 +27,31 @@ class DeckList extends Component {
       return <AppLoading />
     }
 
+    if (Object.keys(decks).length === 0 && decks.constructor === Object) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.item}>
+              <Text style={{fontSize: 20}}>No Decks Found</Text>
+              <Text style={{fontSize: 16, color: gray}}>You should add a deck</Text>
+          </View>
+        </View>
+      )
+    }
 
     return (
       <View style={styles.container}>
-        <Text>List of Decks</Text>
-
-        {Object.keys(decks).map((key) => 
-
-        <TouchableOpacity key={key}
-            onPress={() => this.props.navigation.navigate(
-              'DeckDetails',
-              { entryId: key }
-            )}
-          >
-            <Text>{key}</Text>
-            <Text>{decks[key].questions.length}</Text>
-          </TouchableOpacity>
+        {Object.keys(decks).map((key) =>
+          <View key={key}  style={styles.item}>
+            <TouchableOpacity
+                onPress={() => this.props.navigation.navigate(
+                  'DeckDetails',
+                  { entryId: key }
+                )}
+              >
+                <Text style={{fontSize: 20}}>{key}</Text>
+                <Text style={{fontSize: 16, color: gray}}>Questions: {decks[key].questions.length}</Text>
+              </TouchableOpacity>
+            </View>
         )}
       </View>
     );
@@ -64,4 +74,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  item: {
+    backgroundColor: white,
+    borderRadius: Platform.OS === 'ios' ? 16 : 2,
+    padding: 20,
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 17,
+    justifyContent: 'center',
+    shadowRadius: 3,
+    shadowOpacity: 0.8,
+    shadowColor: 'rgba(0, 0, 0, 0.24)',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    height: 100,
+    width: 300
+  }
 })
