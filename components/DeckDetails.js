@@ -2,17 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { gray, white } from '../utils/colors'
-
-
-function SimpleBtn ({ onPress, txt }) {
-  return (
-    <TouchableOpacity
-      style={Platform.OS === 'ios' ? styles.iosBtn : styles.AndroidBtn}
-      onPress={onPress}>
-        <Text style={styles.submitBtnText}>{txt}</Text>
-    </TouchableOpacity>
-  )
-}
+import SimpleBtn from './SimpleBtn'
 
 class DeckDetails extends React.Component {
   startQuiz = () => { 
@@ -75,28 +65,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  iosBtn: {
-    backgroundColor: gray,
-    padding: 10,
-    borderRadius: 7,
-    height: 45,
-    marginLeft: 40,
-    marginRight: 40,
-  },
-  AndroidBtn: {
-    backgroundColor: gray,
-    padding: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-    height: 45,
-    borderRadius: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  submitBtnText: {
-    color: white,
-    fontSize: 22,
-    textAlign: 'center',
   },
 })
