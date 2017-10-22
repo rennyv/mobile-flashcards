@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import { gray } from '../utils/colors'
 import SimpleBtn from './SimpleBtn'
 import { NavigationActions } from 'react-navigation'
-
+import { uuidv4 } from '../utils/helpers'
+import { submitDeck } from '../utils/api'
 
 class AddDeck extends Component {
   state = {
@@ -16,11 +17,18 @@ class AddDeck extends Component {
     const {title} = this.state
     //const deck = this.state
     const {decks} = this.props
+    const key = uuidv4()
+    const deck = {
+      title,
+      questions: []
+    }
 
     //Check if it it already exists
 
     //call action
-    this.props.dispatch(addDeck(title))
+    this.props.dispatch(addDeck({
+      [key]: deck
+    }))
 
     //reset state
     this.setState(() => ({ title: "" }))
@@ -29,7 +37,7 @@ class AddDeck extends Component {
     this.props.navigation.dispatch(NavigationActions.back())
 
     //add to api
-    //submitEntry({ key, entry })
+    submitDeck({ key, deck })
 
     //clearLocalNotification()
     //  .then(setLocalNotification)

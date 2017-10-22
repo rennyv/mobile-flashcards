@@ -1,9 +1,15 @@
 
 import { RECEIVE_DECKS, ADD_DECK, ADD_CARD } from '../actions'
 
-const initialState ={}
+const initialState = {}
 
 function decks ( state = initialState, action) {
+  console.log("state:", state)
+  console.log("action:", action)
+  console.log("combined:", {
+    ...state,
+    ...action.decks
+  })
   switch (action.type) {
     case RECEIVE_DECKS:
       return {

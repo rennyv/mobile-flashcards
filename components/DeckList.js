@@ -15,7 +15,7 @@ class DeckList extends Component {
     const { dispatch } = this.props
 
     fetchDecks()
-      .then((decks) => dispatch(receiveDecks(decks)))
+      .then((decks) => { dispatch(receiveDecks(decks))})
       .then( () => this.setState(() => ({ready: true})))
   }
 
