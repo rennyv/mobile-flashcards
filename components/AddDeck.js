@@ -41,10 +41,10 @@ class AddDeck extends Component {
     return (
       <View style={styles.container}>
         <Text style={{fontSize: 40}}>Create New Deck</Text>
-        <TextInput placeholder="Deck Tile" style={{height: 40, width: 300}}
+        <TextInput placeholder="Deck Title" style={{height: 40, width: 300}}
         onChangeText={(title) => this.setState({title})}
         value={this.state.title}/>
-        <SimpleBtn onPress={this.submit} txt="Add Card" />
+        <SimpleBtn onPress={this.submit} txt="Add Deck" />
       </View>
     )
   }

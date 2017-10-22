@@ -1,14 +1,53 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { connect } from 'react-redux'
+import SimpleBtn from './SimpleBtn'
+import { addCard } from '../actions'
+import { NavigationActions } from 'react-navigation'
+
 
 class AddCard extends React.Component {
+  state = {
+    question: "",
+    answer: "",
+  }
+
+  submit = () => {
+    const card = this.state
+    const {deckId} = this.props
+
+    //Check if it it already exists
+
+    //call action
+    this.props.dispatch(addCard(deckId, card))
+
+    //reset state
+    this.setState(() => ({ question: "", answer: "" }))
+
+    //head back
+    this.props.navigation.dispatch(NavigationActions.back())
+
+    //add to api
+    //submitEntry({ key, entry })
+
+    //clearLocalNotification()
+    //  .then(setLocalNotification)
+  }
+
   render() {
-    const { deckId } = this.props
+    const { question, answer } = this.state
 
     return (
       <View style={styles.container}>
-        <Text>Create New Card for {deckId}</Text>
+        <Text style={{fontSize: 30}}>Question</Text>
+        <TextInput placeholder="Question" style={{height: 40, width: 300}}
+        onChangeText={(question) => this.setState({question})}
+        value={this.state.question}/>
+        <Text style={{fontSize: 30}}>Answer</Text>
+        <TextInput placeholder="Answer" style={{height: 40, width: 300}}
+        onChangeText={(answer) => this.setState({answer})}
+        value={this.state.answer}/>
+        <SimpleBtn onPress={this.submit} txt="Add Card" />
       </View>
     );
   }
@@ -30,6 +69,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+
   },
 })

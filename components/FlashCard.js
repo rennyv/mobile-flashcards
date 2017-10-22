@@ -32,6 +32,7 @@ class FlashCard extends React.Component {
         ...state,
         card: card + 1,
         correct: correct + 1,
+        showQuestion: true
       }
     })
   }
@@ -43,6 +44,7 @@ class FlashCard extends React.Component {
       return {
         ...state,
         card: card + 1,
+        showQuestion: true
       }
     })
   }
