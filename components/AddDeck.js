@@ -45,7 +45,6 @@ class AddDeck extends Component {
         onChangeText={(title) => this.setState({title})}
         value={this.state.title}/>
         <SimpleBtn onPress={this.submit} txt="Add Card" />
-        <Text>{JSON.stringify(this.state)}</Text>
       </View>
     )
   }
