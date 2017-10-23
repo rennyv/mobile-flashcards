@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import SimpleBtn from './SimpleBtn'
 import { addCard } from '../actions'
 import { NavigationActions } from 'react-navigation'
+import { submitCard } from '../utils/api'
 
 
 class AddCard extends React.Component {
@@ -28,7 +29,7 @@ class AddCard extends React.Component {
     this.props.navigation.dispatch(NavigationActions.back())
 
     //add to api
-    //submitEntry({ key, entry })
+    submitCard({ deckId, card })
 
     //clearLocalNotification()
     //  .then(setLocalNotification)
