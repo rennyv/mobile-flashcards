@@ -1,5 +1,17 @@
 {
   "expo": {
-    "sdkVersion": "21.0.0"
+    "sdkVersion": "21.0.0",
+    "orientation": "portrait",
+    "name": "Mobile Flashcards",
+    "description": "Traditional studing app",
+    "slug": "flashcards",
+    "version": "1.0",
+    "ios": {
+      "bundleIdentifier": "org.flashcards.exp"
+    },
+    "android": {
+      "package": "org.flashcards.exp"
+    }
   }
 }
+

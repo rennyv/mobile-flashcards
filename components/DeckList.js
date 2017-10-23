@@ -41,7 +41,7 @@ class DeckList extends Component {
     return (
       <View style={styles.container}>
         {Object.keys(decks).map((key) =>
-          <View key={key}  style={styles.item}>
+          <View key={key} style={styles.item}>
             <TouchableOpacity
                 onPress={() => this.props.navigation.navigate(
                   'DeckDetails',
