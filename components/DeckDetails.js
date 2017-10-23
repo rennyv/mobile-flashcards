@@ -26,6 +26,7 @@ class DeckDetails extends React.Component {
   
   render() {
     const { title, deck } = this.props
+    console.log (deck)
     return (
       <View style={styles.container}>
         <Text style={{fontSize: 30}}>{ title }</Text>

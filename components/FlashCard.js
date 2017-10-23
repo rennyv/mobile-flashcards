@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { white, gray, red, green } from '../utils/colors'
 import SimpleBtn from './SimpleBtn'
 import { NavigationActions } from 'react-navigation'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class FlashCard extends React.Component {
   state = {
@@ -51,18 +52,25 @@ class FlashCard extends React.Component {
 
   restart = () => {
     const { card, correct } = this.state
-    
-        this.setState((state) => {
-          return {
-            ...state,
-            card: 0,
-            correct: 0,
-          }
-        })
+
+    clearLocalNotification()
+      .then(setLocalNotification)
+
+    this.setState((state) => {
+      return {
+        ...state,
+        card: 0,
+        correct: 0,
+      }
+    })
+
   }
 
   backToDeck = () => {
     this.props.navigation.dispatch(NavigationActions.back())
+
+    clearLocalNotification()  
+      .then(setLocalNotification)
   }
   
   render() {
@@ -86,6 +94,7 @@ class FlashCard extends React.Component {
 
     }
 
+    console.log(deck)
 
     const question = deck.questions[card].question
     const answer = deck.questions[card].answer
