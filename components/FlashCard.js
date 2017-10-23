@@ -112,10 +112,10 @@ class FlashCard extends React.Component {
           </TouchableOpacity>
         </View>
         <View style={{paddingTop: 70}}>
-          <SimpleBtn onPress={this.correct} txt="Right" style={{backgroundColor: green}} />
+          <SimpleBtn onPress={this.correct} txt="Correct" style={{backgroundColor: green}} />
         </View>
         <View style={{paddingTop: 10}}>
-          <SimpleBtn onPress={this.wrong} txt="Wrong" style={{backgroundColor: red}} />
+          <SimpleBtn onPress={this.wrong} txt="Incorrect" style={{backgroundColor: red}} />
         </View>
       </View>
     );
