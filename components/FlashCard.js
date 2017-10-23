@@ -75,8 +75,7 @@ class FlashCard extends React.Component {
   
   render() {
     const { showQuestion, card, correct } = this.state
-    const { deck } = this.props
-    
+    const { deck } = this.props    
 
     if (card >= deck.questions.length) {
       return (
@@ -91,14 +90,10 @@ class FlashCard extends React.Component {
           
         </View>
       )
-
     }
-
-    console.log(deck)
 
     const question = deck.questions[card].question
     const answer = deck.questions[card].answer
-
     
     return (      
       <View style={styles.container}>
