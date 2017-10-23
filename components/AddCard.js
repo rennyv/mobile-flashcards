@@ -5,19 +5,28 @@ import SimpleBtn from './SimpleBtn'
 import { addCard } from '../actions'
 import { NavigationActions } from 'react-navigation'
 import { submitCard } from '../utils/api'
+import { red } from '../utils/colors'
 
 
 class AddCard extends React.Component {
   state = {
     question: "",
     answer: "",
+    error: ""
   }
 
   submit = () => {
-    const card = this.state
+    const {question, answer, error } = this.state
+    const card = { question, answer }
     const {deckId} = this.props
 
-    //Check if it it already exists
+    //simple error check
+    if ((question.trim().length>0) && (answer.trim().length>0)) {
+      this.setState(() => ({ error: "" }))
+    } else {
+      this.setState(() => ({ error: "Please enter a question and answer!"}))
+      return
+    }
 
     //call action
     this.props.dispatch(addCard(deckId, card))
@@ -30,13 +39,10 @@ class AddCard extends React.Component {
 
     //add to api
     submitCard({ deckId, card })
-
-    //clearLocalNotification()
-    //  .then(setLocalNotification)
   }
 
   render() {
-    const { question, answer } = this.state
+    const { question, answer, error } = this.state
 
     return (
       <View style={styles.container}>
@@ -49,6 +55,7 @@ class AddCard extends React.Component {
         onChangeText={(answer) => this.setState({answer})}
         value={this.state.answer}/>
         <SimpleBtn onPress={this.submit} txt="Add Card" />
+        <Text style={{color: red}}>{error}</Text>
       </View>
     );
   }

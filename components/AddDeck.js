@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput } from 'react-native'
 import { addDeck } from '../actions'
 import { connect } from 'react-redux'
-import { gray } from '../utils/colors'
+import { gray, red } from '../utils/colors'
 import SimpleBtn from './SimpleBtn'
 import { NavigationActions } from 'react-navigation'
 import { uuidv4 } from '../utils/helpers'
@@ -10,20 +10,25 @@ import { submitDeck } from '../utils/api'
 
 class AddDeck extends Component {
   state = {
-    title: ''
+    title: '',
+    error: ''
   }
 
   submit = () => {
     const {title} = this.state
-    //const deck = this.state
-    const {decks} = this.props
+
+    if (title.trim().length>0){
+      this.setState(() => ({ error: "" }))
+    } else {
+      this.setState(() => ({ error: "Please enter a deck title!"}))
+      return
+    }
+
     const key = uuidv4()
     const deck = {
       title,
       questions: []
     }
-
-    //Check if it it already exists
 
     //call action
     this.props.dispatch(addDeck({
@@ -38,13 +43,10 @@ class AddDeck extends Component {
 
     //add to api
     submitDeck({ key, deck })
-
-    //clearLocalNotification()
-    //  .then(setLocalNotification)
   }
 
   render() {
-    const { title } = this.state
+    const { title, error } = this.state
 
     return (
       <View style={styles.container}>
@@ -53,14 +55,9 @@ class AddDeck extends Component {
         onChangeText={(title) => this.setState({title})}
         value={this.state.title}/>
         <SimpleBtn onPress={this.submit} txt="Add Deck" />
+        <Text style={{color: red}}>{error}</Text>
       </View>
     )
-  }
-}
-
-function mapStateToProps ( decks ) {
-  return {
-    decks
   }
 }
 
@@ -71,6 +68,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    //justifyContent: 'center',
   },
 })
