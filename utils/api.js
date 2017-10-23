@@ -13,11 +13,11 @@ export function submitDeck ({key, deck}) {
   }))
 }
 
-export function submitCard ({deckId, question}) {
+export function submitCard ({deckId, card}) {
   return AsyncStorage.getItem(DECK_STORAGE_KEY)
     .then((results) => {
       const data = JSON.parse(results)
-      data[deckId].questions = [...data[deckId].questions, question]
+      data[deckId].questions = [...data[deckId].questions, card]
       AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
     })
 }
