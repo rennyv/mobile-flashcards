@@ -16,10 +16,9 @@ class AddDeck extends Component {
 
   submit = () => {
     const {title} = this.state
+    this.setState({ error: (title.trim().length>0) ? "" : "Please enter a deck title!"})
 
-    this.setState({ error: title.trim().length ? "" : "Please enter a deck title!"})
-
-    if (!this.state.error.length) {
+    if (!title.trim().length>0) {
       return
     }
 
