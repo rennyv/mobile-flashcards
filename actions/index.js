@@ -1,26 +1,8 @@
-export const RECEIVE_DECKS = 'RECEIVE_DECKS'
-export const ADD_DECK = 'ADD_DECK'
-export const ADD_CARD = 'ADD_CARD'
+import * as types from './types'
 
-export function receiveDecks (decks) {
-  return {
-    type: RECEIVE_DECKS,
-    decks
-  }
-}
+export const receiveDecks = (decks) => ({ type: types.RECEIVE_DECKS, payload: decks })
 
-export function addDeck (deck) {
-  return {
-    type: ADD_DECK,
-    deck
-  }
-}
+export const addDeck = (deck) => ({ type: types.ADD_DECK, payload: deck })
 
-export function addCard (deckId, card) {
-  return {
-    type: ADD_CARD,
-    deckId,
-    card
-  }
-}
+export const addCard = (deckId, card) => ({ type: types.ADD_CARD, payload: { deckId, card }})
 

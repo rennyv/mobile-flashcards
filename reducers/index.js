@@ -1,5 +1,5 @@
 
-import { RECEIVE_DECKS, ADD_DECK, ADD_CARD } from '../actions'
+import { RECEIVE_DECKS, ADD_DECK, ADD_CARD } from '../actions/types'
 
 const initialState = {}
 
@@ -8,24 +8,24 @@ function decks ( state = initialState, action) {
     case RECEIVE_DECKS:
       return {
         ...state,
-        ...action.decks
+        ...action.payload
       }
     case ADD_DECK:
       return {
         ...state,
-        ...action.deck
+        ...action.payload
       }
     case ADD_CARD:
+      const { deckId, card } = action.payload
       return {
         ...state,
-        [action.deckId]: {
-          ...state[action.deckId],
+        [deckId]: {
+          ...state[deckId],
           ['questions']: [
-            ...state[action.deckId]['questions'], action.card
+            ...state[deckId]['questions'], card
           ]
         }
       }
-
     default:
       return state
   }
