@@ -5,7 +5,7 @@ import { purple, white, gray } from '../utils/colors'
 export default function SimpleBtn ({ onPress, txt, style = {}  }) {
   return (
     <TouchableOpacity
-      style={[Platform.OS === 'ios' ? styles.iosBtn : styles.AndroidBtn, style]}
+      style={[styles.button, style]}
       onPress={onPress}>
         <Text style={styles.submitBtnText}>{txt}</Text>
     </TouchableOpacity>
@@ -13,23 +13,24 @@ export default function SimpleBtn ({ onPress, txt, style = {}  }) {
 }
 
 const styles = StyleSheet.create({
-  iosBtn: {
+  button: {
     backgroundColor: gray,
     padding: 10,
-    borderRadius: 7,
     height: 45,
-    marginLeft: 40,
-    marginRight: 40,
-  },
-  AndroidBtn: {
-    backgroundColor: gray,
-    padding: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-    height: 45,
-    borderRadius: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        borderRadius: 7,
+        marginLeft: 40,
+        marginRight: 40,
+      },
+      android: {
+        paddingLeft: 30,
+        paddingRight: 30,
+        borderRadius: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }
+    })
   },
   submitBtnText: {
     color: white,
