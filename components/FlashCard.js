@@ -17,36 +17,25 @@ class FlashCard extends React.Component {
   flipCard = () => {
     const { showQuestion } = this.state
 
-    this.setState((state) => {
-      return {
-        ...state,
-        showQuestion: !showQuestion,
-      }
-    })
+    this.setState({ showQuestion: !showQuestion })
   }
 
   correct = () => {
     const { card, correct } = this.state
 
-    this.setState((state) => {
-      return {
-        ...state,
+    this.setState({
         card: card + 1,
         correct: correct + 1,
         showQuestion: true
-      }
     })
   }
 
   wrong = () => {
     const { card } = this.state
     
-    this.setState((state) => {
-      return {
-        ...state,
-        card: card + 1,
-        showQuestion: true
-      }
+    this.setState({
+      card: card + 1,
+      showQuestion: true
     })
   }
 
@@ -56,12 +45,9 @@ class FlashCard extends React.Component {
     clearLocalNotification()
       .then(setLocalNotification)
 
-    this.setState((state) => {
-      return {
-        ...state,
-        card: 0,
-        correct: 0,
-      }
+    this.setState({
+      card: 0,
+      correct: 0,
     })
 
   }
@@ -80,11 +66,13 @@ class FlashCard extends React.Component {
     if (card >= deck.questions.length) {
       return (
         <View style={styles.container}>
-          <Text style={{fontSize: 50}}>{((correct/deck.questions.length) * 100).toFixed(1)}%</Text>
-          <View style={{paddingTop: 70}}>
+          <Text style={styles.resultText}>
+            {((correct/deck.questions.length) * 100).toFixed(1)}%
+          </Text>
+          <View style={styles.btnSpace}>
             <SimpleBtn onPress={this.restart} txt="Restart Quiz" />
           </View>
-          <View style={{paddingTop: 10}}>
+          <View style={styles.betweenButtons}>
             <SimpleBtn onPress={this.backToDeck} txt="Back to Deck" />
           </View>
           
@@ -92,18 +80,17 @@ class FlashCard extends React.Component {
       )
     }
 
-    const question = deck.questions[card].question
-    const answer = deck.questions[card].answer
+    const { question, answer } = deck.questions[card]
     
     return (      
       <View style={styles.container}>
         <View>
-          <Text style={{fontSize: 16}}>Card {card+1}/{deck.questions.length} </Text>
+          <Text style={styles.deckInfo}>Card {card+1}/{deck.questions.length} </Text>
         </View>
         <View>
           { (showQuestion) 
-            ? <Text style={{fontSize: 30}}>{question}</Text>
-            : <Text style={{fontSize: 20}}>{answer}</Text>
+            ? <Text style={styles.question}>{question}</Text>
+            : <Text style={styles.answer}>{answer}</Text>
           }
         </View>
         <View>
@@ -111,10 +98,10 @@ class FlashCard extends React.Component {
             <Text>Flip</Text>
           </TouchableOpacity>
         </View>
-        <View style={{paddingTop: 70}}>
+        <View style={styles.btnSpace}>
           <SimpleBtn onPress={this.correct} txt="Correct" style={{backgroundColor: green}} />
         </View>
-        <View style={{paddingTop: 10}}>
+        <View style={styles.betweenButtons}>
           <SimpleBtn onPress={this.wrong} txt="Incorrect" style={{backgroundColor: red}} />
         </View>
       </View>
@@ -163,4 +150,22 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'center',
   },
+  btnSpace: {
+    paddingTop: 70
+  },
+  betweenButtons: {
+    paddingTop: 10
+  },
+  resultText: {
+    fontSize: 50
+  },
+  deckInfo: {
+    fontSize: 16
+  },
+  question: {
+    fontSize: 30
+  },
+  answer: {
+    fontSize: 20
+  }
 })
