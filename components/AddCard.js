@@ -32,7 +32,7 @@ class AddCard extends React.Component {
     this.props.dispatch(addCard(deckId, card))
 
     //reset state
-    this.setState(() => ({ question: "", answer: "" }))
+    this.setState({ question: "", answer: "" })
 
     //head back
     this.props.navigation.dispatch(NavigationActions.back())
@@ -46,16 +46,28 @@ class AddCard extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 30}}>Question</Text>
-        <TextInput placeholder="Question" style={{height: 40, width: 300}}
-        onChangeText={(question) => this.setState({question})}
-        value={this.state.question}/>
-        <Text style={{fontSize: 30}}>Answer</Text>
-        <TextInput placeholder="Answer" style={{height: 40, width: 300}}
-        onChangeText={(answer) => this.setState({answer})}
-        value={this.state.answer}/>
+        <Text style={{fontSize: 30}}>
+          Question
+        </Text>
+        <TextInput 
+          placeholder="Question" 
+          style={{height: 40, width: 300}}
+          onChangeText={(question) => this.setState({question})}
+          value={this.state.question}
+        />
+        <Text style={{fontSize: 30}}>
+          Answer
+        </Text>
+        <TextInput 
+          placeholder="Answer" 
+          style={{height: 40, width: 300}}
+          onChangeText={(answer) => this.setState({answer})}
+          value={this.state.answer}
+        />
         <SimpleBtn onPress={this.submit} txt="Add Card" />
-        <Text style={{color: red}}>{error}</Text>
+        <Text style={{color: red}}>
+          {error}
+        </Text>
       </View>
     );
   }

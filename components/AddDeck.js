@@ -17,10 +17,9 @@ class AddDeck extends Component {
   submit = () => {
     const {title} = this.state
 
-    if (title.trim().length>0) {
-      this.setState(() => ({ error: "" }))
-    } else {
-      this.setState(() => ({ error: "Please enter a deck title!"}))
+    this.setState({ error: title.trim().length ? "" : "Please enter a deck title!"})
+
+    if (!this.state.error.length) {
       return
     }
 
@@ -36,7 +35,7 @@ class AddDeck extends Component {
     }))
 
     //reset state
-    this.setState(() => ({ title: "" }))
+    this.setState({ title: "" })
 
     //head back
     this.props.navigation.dispatch(NavigationActions.back())
@@ -50,12 +49,19 @@ class AddDeck extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 40}}>Create New Deck</Text>
-        <TextInput placeholder="Deck Title" style={{height: 40, width: 300}}
-        onChangeText={(title) => this.setState({title})}
-        value={this.state.title}/>
+        <Text style={{fontSize: 40}}>
+          Create New Deck
+        </Text>
+        <TextInput 
+          placeholder="Deck Title" 
+          style={{height: 40, width: 300}}
+          onChangeText={(title) => this.setState({title})}
+          value={this.state.title}
+        />
         <SimpleBtn onPress={this.submit} txt="Add Deck" />
-        <Text style={{color: red}}>{error}</Text>
+        <Text style={{color: red}}>
+          {error}
+        </Text>
       </View>
     )
   }
