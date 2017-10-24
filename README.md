@@ -8,7 +8,6 @@ Simple program that lets you create decks of cards with questions and answers to
     - `yarn start`
 
 ## Tested
-* On an iPhone
 * On Android Emulator packaged with Android Studio
 
 ## Contributing
